@@ -1,0 +1,42 @@
+Totoro story sketch:
+
+*0. you are in that motorcycle and can see the environment and get to the house
+
+1. your family just moved out to a new house
+	1.1. explore the house and garden (small movement and controls tutorial) [mission: collect N Susuwatari scattered around]
+	
+2. after checking all the Susuwatari your hands got dirty with coaldust
+	2.1. get to the outside pump to wash them
+
+3. you need to get back to the pump and fill some buckets with water for washing the clothes
+
+4. then put the clothes to dry on the drying rack found in the back of the house
+
+5. your bigger sister needs to go to school so you (playing as Mei) will plant some seeds given by your father in the garden
+
+6. after planting them you see a small totoro so you try to catch him but he's running from you
+
+7. you end up following him in the bushes and end up falling through a giant tree
+
+8. there you can see the giant Totoro and try to wake him up but end up falling asleep
+
+9. as Satsuki (the older sister) you return from school but you can't find Mei [mission find Mei with your father] you can see her hat
+and find her in the bushes sleeping
+
+10. when she wakes up she tells you and your father about a big monster (Totoro), [*maybe we implement a drawing system so as a mission
+try to draw Totoro and show them what he looks like]
+
+*11. them you as Mei with Satuski and your father go to the tree temple but you can see that tree entry (it's blocked)
+
+12. after returning home you need to water your seeds [mission: water the seeds that you planted]
+
+13. it's getting dark outside so you go to sleep
+
+14. as Satsuki you wake up in the middle of the night and see the Totoros dancing in the garden so you wake Mei up and go dance with
+them too (interactive: try to do their movement)
+
+15. from the seeds that Mei planted grows a giant tree and then you wake up (it was a dream)
+
+16. but when you go to the garden you can see that the seeds germinated (small plants grow from the seeds) and get excited with Mei about that
+
+the end :D
