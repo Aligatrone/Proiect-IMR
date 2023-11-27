@@ -5,14 +5,15 @@ using UnityEngine.UI;
 public class QuestUpdater : MonoBehaviour
 {
     TextMeshProUGUI quest;
-    public ParticleSystem susuwatari1;
-    public ParticleSystem susuwatari2;
-    public ParticleSystem susuwatari3;
-    public ParticleSystem susuwatari4;
-    bool isFound1 = false;
-    bool isFound2 = false;
-    bool isFound3 = false;
-    bool isFound4 = false;
+    public ParticleSystem[] susuwatariParticles;
+    bool[] isFound;
+
+    private Renderer[] renderHands;
+
+    public GameObject[] hands;
+
+    public Texture2D dirtyHandTexture;
+    public Texture2D normalHandTexture;
 
     int found = 0;
 
@@ -20,36 +21,41 @@ public class QuestUpdater : MonoBehaviour
     {
         quest = GetComponent<TextMeshProUGUI>();
         quest.text = "Find the Susuwatari (0/4)";
+
+        renderHands = new Renderer[hands.Length];
+        for (int i = 0; i < hands.Length; i++) { 
+            renderHands[i] = hands[i].GetComponent<Renderer>();
+        }
+
+        isFound = new bool[susuwatariParticles.Length];
     }
 
     void Update()
     {
-        if (susuwatari1.isPlaying && isFound1 == false)
-        { 
-                isFound1 = true;
+
+        for (int i = 0; i < susuwatariParticles.Length; i++) {
+            if (susuwatariParticles[i].isPlaying && !isFound[i]) {
+                isFound[i] = true;
                 found++;
+                quest.text = $"Find the Susuwatari ({found}/4)";
+            }
         }
-        else if (susuwatari2.isPlaying && isFound2 == false)
-        {
-            isFound2 = true;
-            found++;
-        } else if (susuwatari3.isPlaying && isFound3 == false)
-        {
-            isFound3 = true;
-            found++;
-        } else if (susuwatari4.isPlaying && isFound4 == false)
-        {
-            isFound4 = true;
+
+        if (found == 4) {
+
+            for (int i = 0; i < renderHands.Length; i++)
+            {
+                renderHands[i].material.SetTexture("_MainTex", dirtyHandTexture);
+            }
+
+            Invoke("SetQuestComplete", 1);
             found++;
         }
-            
-        quest.text = $"Find the Susuwatari ({found}/4)";
+
     }
 
-    private void LateUpdate()
+    private void SetQuestComplete()
     {
-        if (found == 4) {
             quest.text = "Quest Completed";
-        }
     }
 }
