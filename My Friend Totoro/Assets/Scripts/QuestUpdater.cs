@@ -6,6 +6,7 @@ public class QuestUpdater : MonoBehaviour
 {
     TextMeshProUGUI quest;
     public ParticleSystem[] susuwatariParticles;
+    public ParticleSystem fountainParticles;
     bool[] isFound;
 
     private Renderer[] renderHands;
@@ -48,14 +49,23 @@ public class QuestUpdater : MonoBehaviour
                 renderHands[i].material.SetTexture("_MainTex", dirtyHandTexture);
             }
 
-            Invoke("SetQuestComplete", 1);
             found++;
+            Invoke("SetQuestComplete", 1);
+        }
+
+        if (found == 5 && fountainParticles.isPlaying) {
+            found++;
+            Invoke("SetQuestComplete", 1);
         }
 
     }
 
     private void SetQuestComplete()
     {
-            quest.text = "Quest Completed";
+        switch (found) {
+            case 5: quest.text = "Go to the water pump and wash your hands"; break;
+            case 6: quest.text = "Quest Complete"; break;
+            default: break;
+        }
     }
 }
