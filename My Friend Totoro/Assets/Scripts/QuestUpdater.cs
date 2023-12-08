@@ -1,20 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class QuestUpdater : MonoBehaviour
 {
     TextMeshProUGUI quest;
-    public ParticleSystem[] susuwatariParticles;
-    public ParticleSystem fountainParticles;
-    bool[] isFound;
 
-    private Renderer[] renderHands;
+    public ParticlesManager particlesManager;
 
-    public GameObject[] hands;
-
-    public Texture2D dirtyHandTexture;
-    public Texture2D normalHandTexture;
+    public static event Action allSusuwatariFound;
+    public static event Action waterPumpUsed;
 
     int found = 0;
 
@@ -22,42 +18,56 @@ public class QuestUpdater : MonoBehaviour
     {
         quest = GetComponent<TextMeshProUGUI>();
         quest.text = "Find the Susuwatari (0/4)";
-
-        renderHands = new Renderer[hands.Length];
-        for (int i = 0; i < hands.Length; i++) { 
-            renderHands[i] = hands[i].GetComponent<Renderer>();
-        }
-
-        isFound = new bool[susuwatariParticles.Length];
     }
 
     void Update()
     {
-
-        for (int i = 0; i < susuwatariParticles.Length; i++) {
-            if (susuwatariParticles[i].isPlaying && !isFound[i]) {
-                isFound[i] = true;
-                found++;
-                quest.text = $"Find the Susuwatari ({found}/4)";
-            }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            found = 4;
         }
-
         if (found == 4) {
 
-            for (int i = 0; i < renderHands.Length; i++)
-            {
-                renderHands[i].material.SetTexture("_MainTex", dirtyHandTexture);
-            }
+            allSusuwatariFound?.Invoke();
 
             found++;
             Invoke("SetQuestComplete", 1);
         }
+    }
 
-        if (found == 5 && fountainParticles.isPlaying) {
+    private void OnEnable()
+    {
+        if (particlesManager != null)
+        {
+            particlesManager.onParticleStart.AddListener(HandlerParticleStart);
+            particlesManager.onWaterStart.AddListener(HandlerWaterStart);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (particlesManager != null)
+        {
+            particlesManager.onParticleStart.RemoveListener(HandlerParticleStart);
+            particlesManager.onWaterStart.RemoveListener(HandlerWaterStart);
+        }
+    }
+
+    void HandlerParticleStart(ParticleSystem particleSystem)
+    {
+        found++;
+        quest.text = $"Find the Susuwatari ({found}/4)";
+
+    }
+
+    void HandlerWaterStart(ParticleSystem waterSystem)
+    {
+        waterPumpUsed?.Invoke();
+
+        if (found == 5)
+        {
             found++;
             Invoke("SetQuestComplete", 1);
         }
-
     }
 
     private void SetQuestComplete()
