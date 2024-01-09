@@ -10,3 +10,10 @@
     - using Events instead of references in code
 - Debugging Tools
     - button for skipping levels in the game
+
+
+## Week 13:
+
+- adding scritable objects
+- totoro model + animations (idle, waving) + interaction with it
+- rickshaw model (not ours)
