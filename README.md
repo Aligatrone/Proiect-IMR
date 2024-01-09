@@ -17,3 +17,5 @@
 - adding scritable objects
 - totoro model + animations (idle, waving) + interaction with it
 - rickshaw model (not ours)
+
+[demo_video](My%20Friend%20Totoro/Recording.mp4)
