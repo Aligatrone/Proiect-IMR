@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4414a6772259144794341066e0c8dd3, type: 3}
   m_Name: UseWaterPump
   m_EditorClassIdentifier: 
-  initialState: {fileID: 0}
-  states: []
+  initialState: {fileID: 11400000, guid: bbca12c432408e0409285fb13f0f5988, type: 2}
+  states:
+  - {fileID: 11400000, guid: bbca12c432408e0409285fb13f0f5988, type: 2}
+  - {fileID: 11400000, guid: bbca12c432408e0409285fb13f0f5988, type: 2}

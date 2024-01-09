@@ -29,7 +29,7 @@ public class QuestUpdater : MonoBehaviour
 
             allSusuwatariFound?.Invoke();
 
-            found++;
+            // states = 2;
             Invoke("SetQuestComplete", 1);
         }
     }
