@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbda6fd7b0146b48aad02bbd4e14ecd, type: 3}
   m_Name: Dirty
   m_EditorClassIdentifier: 
-  hand: {fileID: 2800000, guid: f93a4ffe3b1b9ae4f81d99f72ba2b988, type: 3}
+  hand: {fileID: 2800000, guid: a13129375d9deab4fb9c43d01edee290, type: 3}
   sleeve: {fileID: 2100000, guid: 1cd60baff7eac9d4693b3033d12420e1, type: 2}
