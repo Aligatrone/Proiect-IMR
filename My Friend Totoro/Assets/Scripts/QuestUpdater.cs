@@ -22,10 +22,12 @@ public class QuestUpdater : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             found = 4;
         }
-        if (found == 4) {
+        if (found == 4)
+        {
 
             allSusuwatariFound?.Invoke();
 
@@ -61,9 +63,9 @@ public class QuestUpdater : MonoBehaviour
 
     void HandlerWaterStart(ParticleSystem waterSystem)
     {
-        waterPumpUsed?.Invoke();
+        waterPumpUsed.Invoke();
 
-        if (found == 5)
+        if (found == 4)
         {
             found++;
             Invoke("SetQuestComplete", 1);
@@ -72,9 +74,10 @@ public class QuestUpdater : MonoBehaviour
 
     private void SetQuestComplete()
     {
-        switch (found) {
-            case 5: quest.text = "Go to the water pump and wash your hands"; break;
-            case 6: quest.text = "Quest Complete"; break;
+        switch (found)
+        {
+            case 4: quest.text = "Go to the water pump and wash your hands"; break;
+            case 5: quest.text = "Quest Complete"; break;
             default: break;
         }
     }
