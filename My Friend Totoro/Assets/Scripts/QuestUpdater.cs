@@ -12,12 +12,15 @@ public class QuestUpdater : MonoBehaviour
     public static event Action allSusuwatariFound;
     public static event Action waterPumpUsed;
 
-    int found = 0;
+    int found = -1;
 
     private void Start()
     {
         quest = GetComponent<TextMeshProUGUI>();
-        quest.text = "Find the Susuwatari (0/4)";
+        quest.text = "";
+        EndCutscene.Arrived += NewQuest;
+        CheckProximity.Entered += FirstCheckpoint;
+        
     }
 
     void Update()
@@ -32,6 +35,18 @@ public class QuestUpdater : MonoBehaviour
             // states = 2;
             Invoke("SetQuestComplete", 1);
         }
+    }
+
+    void NewQuest() {
+        if (found == -1)
+        {
+            quest.text = "Go inside your new home";
+            found++;
+        }
+    }
+
+    void FirstCheckpoint() {
+        quest.text = $"Find the Susuwatari ({found}/4)";
     }
 
     private void OnEnable()
@@ -77,5 +92,10 @@ public class QuestUpdater : MonoBehaviour
             case 5: quest.text = "Quest Complete"; break;
             default: break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        EndCutscene.Arrived += NewQuest;
     }
 }
