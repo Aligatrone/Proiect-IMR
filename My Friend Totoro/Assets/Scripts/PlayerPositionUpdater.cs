@@ -26,7 +26,7 @@ public class PlayerPositionUpdater : MonoBehaviour
             debugCutsceneSkip = false;
         }
     }
-
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
