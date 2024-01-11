@@ -5,6 +5,10 @@ using System;
 
 public class QuestUpdater : MonoBehaviour
 {
+
+    public delegate void FinishedWateringHandler();
+    public static event FinishedWateringHandler DoneWatering;
+
     TextMeshProUGUI quest;
 
     public ParticlesManager particlesManager;
@@ -32,7 +36,7 @@ public class QuestUpdater : MonoBehaviour
 
             allSusuwatariFound?.Invoke();
 
-            // states = 2;
+            // states = 2;h
             Invoke("SetQuestComplete", 1);
         }
     }
@@ -90,6 +94,10 @@ public class QuestUpdater : MonoBehaviour
         if (found != 5)
             return;
 
+        if (DoneWatering != null)
+        {
+            DoneWatering();
+        }
         found++;
         SetQuestComplete();
     }
@@ -99,7 +107,8 @@ public class QuestUpdater : MonoBehaviour
         switch (found) {
             case 4: quest.text = "Go to the water pump and wash your hands"; break;
             case 5: quest.text = "Water the garden"; break;
-            case 6: quest.text = "Quest Complete"; break;
+            case 6: quest.text = "Follow the creature"; break;
+            case 7: quest.text = "Quest Complete"; break;
             default: break;
         }
     }
