@@ -20,7 +20,7 @@ public class QuestUpdater : MonoBehaviour
         quest.text = "";
         EndCutscene.Arrived += NewQuest;
         CheckProximity.Entered += FirstCheckpoint;
-        
+        GardenGrowing.GardenWateredEvent += GardenWasWatered;
     }
 
     void Update()
@@ -85,11 +85,21 @@ public class QuestUpdater : MonoBehaviour
         }
     }
 
+    void GardenWasWatered()
+    {
+        if (found != 5)
+            return;
+
+        found++;
+        SetQuestComplete();
+    }
+
     private void SetQuestComplete()
     {
         switch (found) {
             case 4: quest.text = "Go to the water pump and wash your hands"; break;
-            case 5: quest.text = "Quest Complete"; break;
+            case 5: quest.text = "Water the garden"; break;
+            case 6: quest.text = "Quest Complete"; break;
             default: break;
         }
     }

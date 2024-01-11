@@ -8,6 +8,7 @@ public class PlayerPositionUpdater : MonoBehaviour
     public GameObject vehicle;
     public GameObject player;
     public GameObject finalCheckpoint;
+    bool debugCutsceneSkip = true;
     void Start()
     {
         if (vehicle == null || player == null || finalCheckpoint == null) {
@@ -18,8 +19,18 @@ public class PlayerPositionUpdater : MonoBehaviour
     }
 
     void HandleArrival() {
-        player.transform.parent = null;
-        player.transform.position = finalCheckpoint.transform.position;
+        if (debugCutsceneSkip)
+        {
+            player.transform.parent = null;
+            player.transform.position = finalCheckpoint.transform.position;
+            debugCutsceneSkip = false;
+        }
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            HandleArrival();
     }
 
     private void OnDestroy()

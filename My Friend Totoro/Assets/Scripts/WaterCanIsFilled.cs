@@ -1,15 +1,17 @@
 using UnityEngine;
+using System;
 
 public class WaterCanIsFilled : MonoBehaviour
 {
     private bool isFilled;
-    private MeshRenderer waterRenderer;
     [SerializeField] private GameObject pumpLeaver;
     private Quaternion previousPumpRotation;
+    [SerializeField] private ParticleSystem waterEffect;
+    public static event Action WateringEvent;
 
     private void Start()
     {
-        waterRenderer = GetComponent<MeshRenderer>();
+        transform.Find("water").gameObject.SetActive(false);
 
         previousPumpRotation = pumpLeaver.transform.rotation;
     }
@@ -21,7 +23,7 @@ public class WaterCanIsFilled : MonoBehaviour
 
         IsWatering();
         
-        waterRenderer.enabled = isFilled;
+        transform.Find("water").gameObject.SetActive(isFilled);
 
         previousPumpRotation = pumpLeaver.transform.rotation;
     }
@@ -39,6 +41,13 @@ public class WaterCanIsFilled : MonoBehaviour
         if (!isFilled)
             return;
 
-        float angleZ = transform.rotation.z;
+        float angleZ = transform.rotation.eulerAngles.z;
+
+        if (angleZ < 330 && angleZ > 300)
+        {
+            waterEffect.Play();
+            isFilled = false;
+            WateringEvent?.Invoke();
+        }
     }
 }
