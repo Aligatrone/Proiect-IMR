@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndCutscene : MonoBehaviour
 {
-    private Collider collider;
+    private Collider carCollider;
     public GameObject boundary;
 
     public delegate void ArrivalCutsceneDone();
@@ -12,15 +12,15 @@ public class EndCutscene : MonoBehaviour
     void Start()
     {
         boundary.SetActive(false);
-        collider = GetComponent<Collider>();
-        collider.enabled = false;
+        carCollider = GetComponent<Collider>();
+        carCollider.enabled = false;
         gameObject.SetActive(false);
         CarCutscene.OnArrival += HandleArrival;
     }
 
     void HandleArrival() { 
         gameObject.SetActive(true);
-        collider.enabled = true;
+        carCollider.enabled = true;
         boundary.SetActive(true);
         if (Arrived != null) {
             Arrived();
