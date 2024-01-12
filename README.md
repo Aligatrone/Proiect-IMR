@@ -19,3 +19,17 @@
 - rickshaw model (not ours)
 
 [demo_video](My%20Friend%20Totoro/Recording.mp4)
+
+## Week 14 (Lab 12):
+
+- models: garden (animated), water can, bed, growing plant (animated)
+- cutscene at the start of the game
+- text bubble
+- new missions:
+    - fill the water can and water the garden
+    - follow the small totoro in the forest
+    - after talking with the big totoro go to the sleep in the bed
+- day/night
+- extended the map
+
+[Demo Video Lab 12](My%20Friend%20Totoro/demoLab12.mp4)
