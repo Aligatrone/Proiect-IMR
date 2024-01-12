@@ -7,14 +7,23 @@ public class SmallTotoro : MonoBehaviour
     private Animator animator;
     public GameObject checkpoint1;
     public GameObject checkpoint2;
-    private bool[] visitedCheckpoint;
-    private bool canVerifyCheckpointCollisions = true;
+    private bool firstCheckpoint;
+    private bool reachedForest;
+
+    public delegate void ForestEntered();
+    public static event ForestEntered ArrivedAtForest;
+
     void Start()
     {
         gameObject.SetActive(false);
-        visitedCheckpoint = new bool[3];
+
+        firstCheckpoint = true;
+        reachedForest = false;
+
         animator = GetComponent<Animator>();
+
         QuestUpdater.DoneWatering += SpawnTotoro;
+
         if (checkpoint1 == null || checkpoint2 == null) {
             Debug.LogError("Checkpoints for small Totoro are not set!");
         }
@@ -26,38 +35,48 @@ public class SmallTotoro : MonoBehaviour
         {
             animator.SetBool("isPlayerNear", true);
         }
-        else if (other.CompareTag("TotoroCheckpoint") && canVerifyCheckpointCollisions)
+        
+        if (other.CompareTag("TotoroCheckpoint"))
         {
             animator.SetBool("isPlayerNear", false);
-            if (visitedCheckpoint[0] == false)
+            if (firstCheckpoint)
             {
                 TurnTowardsCheckpoint(checkpoint1);
-                visitedCheckpoint[0] = true;
-                StartCoroutine(DelayCheckTrigger());
+                firstCheckpoint = false;
             }
-            else if (visitedCheckpoint[1] == false)
+            else if(!firstCheckpoint)
             {
                 TurnTowardsCheckpoint(checkpoint2);
-                visitedCheckpoint[1] = true;
-            }
-            else
-            {
-                gameObject.SetActive(false);
+                if (ArrivedAtForest != null) {
+                    ArrivedAtForest();
+                }
+                reachedForest = true;
             }
         }
-        
+
+        if (other.CompareTag("FinalTotoroCheckpoint")) {
+            gameObject.SetActive(false);
+        }
     }
 
-    IEnumerator DelayCheckTrigger() { 
-        canVerifyCheckpointCollisions = false;
-        yield return new WaitForSeconds(2.0f);
-        canVerifyCheckpointCollisions = true;
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && reachedForest == false) {
+            animator.SetBool("isPlayerNear", false);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && !animator.GetBool("isPlayerNear")) {
+            animator.SetBool("isPlayerNear", true);
+        }
     }
 
     private void TurnTowardsCheckpoint(GameObject checkpoint) {
         Vector3 directionToCheckpoint = checkpoint.transform.position - transform.position;
+        
         transform.forward = directionToCheckpoint;
-        checkpoint.SetActive(false);
     }
 
     private void SpawnTotoro() { 

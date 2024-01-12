@@ -13,6 +13,7 @@ public class CheckProximity : MonoBehaviour
             if (Entered != null) {
                 Entered();
             }
+            enabled = false;
         }
     }
 }

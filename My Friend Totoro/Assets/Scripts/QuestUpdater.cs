@@ -16,7 +16,7 @@ public class QuestUpdater : MonoBehaviour
     public static event Action allSusuwatariFound;
     public static event Action waterPumpUsed;
 
-    int found = -1;
+    int checkpointsReached = -1;
 
     private void Start()
     {
@@ -25,32 +25,35 @@ public class QuestUpdater : MonoBehaviour
         EndCutscene.Arrived += NewQuest;
         CheckProximity.Entered += FirstCheckpoint;
         GardenGrowing.GardenWateredEvent += GardenWasWatered;
+        SmallTotoro.ArrivedAtForest += ReachedForest;
+        ChatTotoro.ChatDone += IsNight;
+        EndFirstDay.EndDay += EndDay;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            found = 4;
+            checkpointsReached = 4;
         }
-        if (found == 4) {
+        if (checkpointsReached == 4) {
 
             allSusuwatariFound?.Invoke();
 
-            // states = 2;h
             Invoke("SetQuestComplete", 1);
         }
     }
 
     void NewQuest() {
-        if (found == -1)
+        if (checkpointsReached == -1)
         {
             quest.text = "Go inside your new home";
-            found++;
+            checkpointsReached++;
         }
     }
 
     void FirstCheckpoint() {
-        quest.text = $"Find the Susuwatari ({found}/4)";
+        quest.text = $"Find the Susuwatari ({checkpointsReached}/4)";
+        CheckProximity.Entered -= FirstCheckpoint;
     }
 
     private void OnEnable()
@@ -73,48 +76,79 @@ public class QuestUpdater : MonoBehaviour
 
     void HandlerParticleStart(ParticleSystem particleSystem)
     {
-        found++;
-        quest.text = $"Find the Susuwatari ({found}/4)";
-
+        if (checkpointsReached < 4)
+        {
+            checkpointsReached++;
+            quest.text = $"Find the Susuwatari ({checkpointsReached}/4)";
+        }
     }
 
     void HandlerWaterStart(ParticleSystem waterSystem)
     {
         waterPumpUsed?.Invoke();
 
-        if (found == 4)
+        if (checkpointsReached == 4)
         {
-            found++;
+            checkpointsReached++;
             Invoke("SetQuestComplete", 1);
         }
     }
 
     void GardenWasWatered()
     {
-        if (found != 5)
+        if (checkpointsReached != 5)
             return;
 
         if (DoneWatering != null)
         {
             DoneWatering();
         }
-        found++;
+        checkpointsReached++;
+        SetQuestComplete();
+    }
+
+    void ReachedForest() {
+        if (checkpointsReached != 6) {
+            return;
+        }
+
+        checkpointsReached++;
+        SetQuestComplete();
+    }
+
+    void IsNight() {
+        if (checkpointsReached != 7) {
+            return;
+        }
+
+        checkpointsReached++;
+        SetQuestComplete();
+    }
+
+    void EndDay() {
+        if (checkpointsReached != 8) {
+            return;
+        }
+
+        checkpointsReached++;
         SetQuestComplete();
     }
 
     private void SetQuestComplete()
     {
-        switch (found) {
+        switch (checkpointsReached) {
             case 4: quest.text = "Go to the water pump and wash your hands"; break;
             case 5: quest.text = "Water the garden"; break;
-            case 6: quest.text = "Follow the creature"; break;
-            case 7: quest.text = "Quest Complete"; break;
+            case 6: quest.text = "Follow the little creature"; break;
+            case 7: quest.text = "Check out the big creature"; break;
+            case 8: quest.text = "Go home and sleep"; break;
+            case 9: quest.text = "Quest Complete"; checkpointsReached = 99; break;
             default: break;
         }
     }
 
     private void OnDestroy()
     {
-        EndCutscene.Arrived += NewQuest;
+        EndCutscene.Arrived -= NewQuest;
     }
 }
