@@ -32,4 +32,4 @@
 - day/night
 - extended the map
 
-[Demo Video Lab 12](My%20Friend%20Totoro/demoLab12.mp4)
+[Demo Video Lab 12](My%20Friend%20Totoro/demoLab12.mkv)
