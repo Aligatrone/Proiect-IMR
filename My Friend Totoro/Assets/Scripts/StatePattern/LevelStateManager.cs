@@ -19,6 +19,11 @@ public class LevelStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentState.TransitionState();
+        }
+
         currentState.UpdateState();
     }
 

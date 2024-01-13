@@ -9,10 +9,18 @@ public class ActivateFreezeWaypoint : MonoBehaviour
         gameObject.SetActive(false);
 
         ChatTotoro.FlowerDance += ActivateTriggerPoint;
+        FreezePlayer.TouchedCheckpoint += DeactivatetriggerPoint;
+        
     }
 
     private void ActivateTriggerPoint()
     {
         gameObject.SetActive(true);
+    }
+
+    private void DeactivatetriggerPoint() { 
+        gameObject.SetActive(false);
+        ChatTotoro.FlowerDance -= ActivateTriggerPoint;
+        FreezePlayer.TouchedCheckpoint -= DeactivatetriggerPoint;
     }
 }

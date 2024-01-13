@@ -7,7 +7,7 @@ public class DespawnWall : MonoBehaviour
     
     void Start()
     {
-        QuestUpdater.DoneWatering += RemoveWall;
+        WaterTheGarden.DoneWatering += RemoveWall;
     }
 
     private void RemoveWall() { 

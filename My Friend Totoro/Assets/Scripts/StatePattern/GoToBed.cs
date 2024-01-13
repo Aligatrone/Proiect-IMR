@@ -19,6 +19,6 @@ public class GoToBed : LevelBaseState
     public override void TransitionState()
     {
         EndFirstDay.EndDay -= TransitionState;
-        stateMachine.SwitchState(new LastMission());
+        stateMachine.SwitchState(new MeetTotoroOutside());
     }
 }

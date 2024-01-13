@@ -23,7 +23,7 @@ public class ChatTotoro : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        QuestUpdater.DoneWatering += SpawnMainTotoro;
+        WaterTheGarden.DoneWatering += SpawnMainTotoro;
 
         interactable = GetComponent<XRSimpleInteractable>();
 
