@@ -21,6 +21,7 @@ public class CameraFade : MonoBehaviour
         ChatTotoro.ChatDone += TriggerFade;
         SwapTime.TransitionDone += ResetFade;
         EndFirstDay.EndDay += TriggerFade;
+        TeleportMainTotoro.EnterDream += ResetFade;
         if (startFadedOut) alpha = 1f; else alpha = 0f;
         texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha));
