@@ -12,7 +12,6 @@ public class SwapTime : MonoBehaviour
     private void Start()
     {
         ChatTotoro.ChatDone += ChangeToNight;
-        EndFirstDay.EndDay += ChangeToDay;
     }
 
     void ChangeToNight() {
