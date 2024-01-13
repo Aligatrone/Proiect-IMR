@@ -10,6 +10,7 @@ public class CollectSusuwatari : LevelBaseState
     public override void EnterState(LevelStateManager levelSystem)
     {
         SusuwatariFinding.SusuwatariFind += SusuwatariWasFound;
+        EndFirstDay.EndDaySecret += SecretEnding;
         stateMachine = levelSystem;
         stateMachine.questTextBox.text = $"Find the Susuwatari ({numberOfSusuwatariFound}/4)";
     }
@@ -31,8 +32,16 @@ public class CollectSusuwatari : LevelBaseState
         TransitionState();
     }
 
+    private void SecretEnding()
+    {
+        EndFirstDay.EndDaySecret -= SecretEnding;
+        SusuwatariFinding.SusuwatariFind -= SusuwatariWasFound;
+        stateMachine.SwitchState(new SecretEnding());
+    }
+
     public override void TransitionState()
     {
+        EndFirstDay.EndDaySecret -= SecretEnding;
         SusuwatariFinding.SusuwatariFind -= SusuwatariWasFound;
         stateMachine.SwitchState(new WashHands());
     }

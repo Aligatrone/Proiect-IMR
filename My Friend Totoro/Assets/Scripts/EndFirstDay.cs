@@ -9,28 +9,32 @@ public class EndFirstDay : MonoBehaviour
 
     public delegate void Transition();
     public static event Transition EndDay;
+    public static event Transition EndDaySecret;
 
     private XRSimpleInteractable interactable;
+    private bool secretEnding = true;
 
     private void Start()
     {
         interactable = GetComponent<XRSimpleInteractable>();
 
         interactable.selectEntered.AddListener(OnGrabbed);
-
-        interactable.enabled = false;
-
-        ChatTotoro.ChatDone += ActivateInteractable;
+        
+        ChatTotoro.ChatDone += NotSecretEnding;
     }
 
     private void OnGrabbed(SelectEnterEventArgs arg0)
     {
-        if (EndDay != null) {
-            EndDay();
+        if(secretEnding)
+            EndDaySecret?.Invoke();
+        else
+        {
+            EndDay?.Invoke();
         }
     }
 
-    void ActivateInteractable() {
-        interactable.enabled = true;
+    private void NotSecretEnding()
+    {
+        secretEnding = false;
     }
 }
