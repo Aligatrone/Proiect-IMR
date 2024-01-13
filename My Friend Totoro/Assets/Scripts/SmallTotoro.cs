@@ -22,7 +22,7 @@ public class SmallTotoro : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        QuestUpdater.DoneWatering += SpawnTotoro;
+        WaterTheGarden.DoneWatering += SpawnTotoro;
 
         if (checkpoint1 == null || checkpoint2 == null) {
             Debug.LogError("Checkpoints for small Totoro are not set!");

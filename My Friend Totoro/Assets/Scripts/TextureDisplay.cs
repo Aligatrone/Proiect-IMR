@@ -15,9 +15,9 @@ public class TextureDisplay : MonoBehaviour
         renderHands[0] = hand.GetComponent<Renderer>();
         renderHands[1] = sleeve.GetComponent<Renderer>();
 
-        QuestUpdater.allSusuwatariFound += HandleNewTexture;
+        CollectSusuwatari.AllSusuwatariFound += HandleNewTexture;
 
-        QuestUpdater.waterPumpUsed += RevertTexture;
+        WashHands.HandsWasWashed += RevertTexture;
     }
 
     private void UpdateTexture(Arm arm)

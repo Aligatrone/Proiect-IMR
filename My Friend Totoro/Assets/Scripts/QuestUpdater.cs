@@ -12,8 +12,7 @@ public class QuestUpdater : MonoBehaviour
     TextMeshProUGUI quest;
 
     public ParticlesManager particlesManager;
-
-    public static event Action allSusuwatariFound;
+    
     public static event Action waterPumpUsed;
 
     int checkpointsReached = -1;
@@ -36,8 +35,6 @@ public class QuestUpdater : MonoBehaviour
             checkpointsReached = 4;
         }
         if (checkpointsReached == 4) {
-
-            allSusuwatariFound?.Invoke();
 
             Invoke("SetQuestComplete", 1);
         }
