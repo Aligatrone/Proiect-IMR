@@ -31,5 +31,6 @@
     - after talking with the big totoro go to the sleep in the bed
 - day/night
 - extended the map
+- state pattern for the quest system
 
 [Demo Video Lab 12](My%20Friend%20Totoro/demoLab12.mkv)
