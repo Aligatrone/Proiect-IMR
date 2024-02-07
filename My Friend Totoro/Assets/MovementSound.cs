@@ -5,33 +5,41 @@ using UnityEngine;
 public class MovementSound : MonoBehaviour
 {
     public AudioSource audioSource;
-    public float movementThreshold = 0.01f;
-    private Vector3 lastPosition;
-
+    public AudioClip grass;
+    public AudioClip wood;
 
     void Start()
     {
-        lastPosition = transform.position;
+        DetectHouse.EnteredHouse += SwapToWoodSounds;
+        DetectHouse.ExitedHouse += SwapToGrassSounds;
+        CarCutscene.OnArrival += RemoveCarListener;
+        audioSource.clip = wood;
     }
 
     void Update()
     {
-        Vector3 currentPosition = transform.position;
-        float distanceMoved = Vector3.Distance(currentPosition, lastPosition);
-
-        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) {
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        {
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
         }
+    }
 
-        if (distanceMoved > movementThreshold) {
-            Debug.Log(distanceMoved);
-            if (!audioSource.isPlaying) {
-                audioSource.Play();    
-                }
-        }
-        lastPosition = currentPosition;
+    private void RemoveCarListener()
+    {
+        CarCutscene.OnArrival -= RemoveCarListener;
+        SwapToGrassSounds();
+    }
+
+    private void SwapToGrassSounds()
+    {
+        audioSource.clip = grass;
+    }
+
+    private void SwapToWoodSounds()
+    {
+        audioSource.clip = wood;
     }
 }
