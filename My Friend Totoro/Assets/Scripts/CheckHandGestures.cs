@@ -8,10 +8,10 @@ public class CheckHandGestures : MonoBehaviour
     public delegate void GestureDone();
     public static event GestureDone HandGestureDone;
 
-    private bool shouldCheck = false;
+    private bool shouldCheck;
     void Start()
     {
-        FreezePlayer.TouchedCheckpoint += ActivatePoints;
+        shouldCheck = true;
     }
 
     void Update()
@@ -20,12 +20,9 @@ public class CheckHandGestures : MonoBehaviour
             if (transform.childCount <= 0) {
                 if (HandGestureDone != null) {
                     HandGestureDone();
+                    shouldCheck = false;
                 }
             }
         }
-    }
-
-    private void ActivatePoints() {
-        shouldCheck = true;
     }
 }
