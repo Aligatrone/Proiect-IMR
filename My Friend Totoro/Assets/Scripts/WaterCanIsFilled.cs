@@ -8,6 +8,7 @@ public class WaterCanIsFilled : MonoBehaviour
     private Quaternion previousPumpRotation;
     [SerializeField] private ParticleSystem waterEffect;
     public static event Action WateringEvent;
+    public AudioClip waterSound;
 
     private void Start()
     {
@@ -46,6 +47,8 @@ public class WaterCanIsFilled : MonoBehaviour
         if (angleZ < 330 && angleZ > 300)
         {
             waterEffect.Play();
+            Sounds soundInstance = Sounds.Instance;
+            soundInstance.PlaySound(waterSound);
             isFilled = false;
             WateringEvent?.Invoke();
         }

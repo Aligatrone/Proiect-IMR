@@ -8,6 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ChatTotoro : MonoBehaviour
 {
     public GameObject[] bubbleText;
+    public AudioClip[] totoroSounds;
 
     private XRSimpleInteractable interactable;
 
@@ -39,10 +40,16 @@ public class ChatTotoro : MonoBehaviour
         if (firstChat)
         {
             bubbleText[0].SetActive(true);
+            Sounds soundInstance = Sounds.Instance;
+            soundInstance.PlaySound(totoroSounds[0]);
+            
             StartCoroutine(TimerCoroutine());
         }
         else {
             bubbleText[1].SetActive(true);
+            Sounds soundInstance = Sounds.Instance;
+            soundInstance.PlaySound(totoroSounds[1]);
+            
             if (FlowerDance != null) {
                 FlowerDance();
             }
