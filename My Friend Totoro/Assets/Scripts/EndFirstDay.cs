@@ -13,6 +13,7 @@ public class EndFirstDay : MonoBehaviour
 
     private XRSimpleInteractable interactable;
     private bool secretEnding = true;
+    private bool shouldTransition = true;
 
     private void Start()
     {
@@ -25,8 +26,14 @@ public class EndFirstDay : MonoBehaviour
 
     private void OnGrabbed(SelectEnterEventArgs arg0)
     {
-        if(secretEnding)
-            EndDaySecret?.Invoke();
+        if (secretEnding)
+        {
+            if (shouldTransition)
+            {
+                shouldTransition = false;
+                EndDaySecret?.Invoke();
+            }
+        }
         else
         {
             EndDay?.Invoke();

@@ -12,7 +12,15 @@ public class SwapTime : MonoBehaviour
     private void Start()
     {
         ChatTotoro.ChatDone += ChangeToNight;
+        EndFirstDay.EndDaySecret += SecretChangeToNight;
     }
+
+    void SecretChangeToNight() {
+        EndFirstDay.EndDaySecret -= SecretChangeToNight;
+        changeToNight = true;
+        StartCoroutine(TimerCoroutine());
+    }
+
 
     void ChangeToNight() {
         changeToNight = true;
