@@ -33,6 +33,8 @@ public class ChatTotoro : MonoBehaviour
         SwapTime.TransitionDone += DespawnMainTotoro;
 
         TeleportMainTotoro.EnterDream += SpawnMainTotoro;
+        
+        LastMission.LastMissionCutscene += TalkFlying;
     }
 
     private void OnGrabbed(SelectEnterEventArgs arg0)
@@ -55,6 +57,11 @@ public class ChatTotoro : MonoBehaviour
             }
         }
         
+    }
+
+    private void TalkFlying() {
+        Sounds soundInstance = Sounds.Instance;
+        soundInstance.PlaySound(totoroSounds[2]);
     }
 
     private IEnumerator TimerCoroutine() {
