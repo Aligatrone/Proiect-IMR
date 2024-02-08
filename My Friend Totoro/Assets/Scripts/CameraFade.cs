@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraFade : MonoBehaviour
@@ -23,6 +24,7 @@ public class CameraFade : MonoBehaviour
         EndFirstDay.EndDay += TriggerFade;
         EndFirstDay.EndDaySecret += TriggerFade;
         TeleportMainTotoro.EnterDream += ResetFade;
+        LastMission.LastMissionCutscene += TriggerCountdown;
         if (startFadedOut) alpha = 1f; else alpha = 0f;
         texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha));
@@ -36,6 +38,17 @@ public class CameraFade : MonoBehaviour
     void ResetFade()
     {
         shouldFade = -1;
+    }
+
+    void TriggerCountdown() { 
+        LastMission.LastMissionCutscene -= TriggerCountdown;
+        StartCoroutine(TimerCoroutine());
+    }
+
+    private IEnumerator TimerCoroutine()
+    {
+        yield return new WaitForSeconds(7f);
+        shouldFade = 1;
     }
 
     private void Update()
